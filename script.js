@@ -753,7 +753,7 @@ function nextPage() {
     }
 
     // 👉 10번째마다(10,20,30,...) 클라이언트 자동 백업(한 페이지당 1회만)
-    if (currentPageNum > 0 && currentPageNum % 10 === 0 && lastBackupPageNum !== currentPageNum) {
+    if (currentPageNum > 1 && currentPageNum % 10 === 1 && lastBackupPageNum !== currentPageNum) {
         console.log(`💾 Auto-saving backup at page ${currentPageNum}`);
         downloadResponses(true); // silent backup
         lastBackupPageNum = currentPageNum;
