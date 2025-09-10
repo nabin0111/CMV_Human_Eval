@@ -729,13 +729,6 @@ function saveCurrentPageResponses() {
     localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
     localStorage.setItem('survey_currentPage', currentPageNum);
 
-    // 👉 10번째마다(10,20,30,...) 클라이언트 자동 백업(한 페이지당 1회만)
-    if (currentPageNum > 0 && currentPageNum % 10 === 0 && lastBackupPageNum !== currentPageNum) {
-        console.log(`💾 Auto-saving backup at page ${currentPageNum}`);
-        downloadResponses(true); // silent backup
-        lastBackupPageNum = currentPageNum;
-    }
-
     return true;
 }
 
@@ -757,6 +750,13 @@ function nextPage() {
         showPage(currentPageNum + 1, 'next');
     } else {
         showThankYouPage();
+    }
+
+    // 👉 10번째마다(10,20,30,...) 클라이언트 자동 백업(한 페이지당 1회만)
+    if (currentPageNum > 0 && currentPageNum % 10 === 0 && lastBackupPageNum !== currentPageNum) {
+        console.log(`💾 Auto-saving backup at page ${currentPageNum}`);
+        downloadResponses(true); // silent backup
+        lastBackupPageNum = currentPageNum;
     }
 }
 
