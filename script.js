@@ -726,7 +726,8 @@ async function showThankYouPage() {
 
     // Auto-save to server
     const saved = await saveToServer();
-
+    downloadResponses();
+    
     // Generate summary
     const totalResponses = Object.keys(responses).filter(key =>
         key.includes('persuasive') && !key.includes('comments')
