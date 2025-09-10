@@ -642,7 +642,7 @@ function hideValidationError() {
     const modal = document.getElementById('validationErrorModal');
     if (modal) {
         modal.style.opacity = '0';
-        modal.querySelector('div').style.transform = 'translateY(-20px)');
+        modal.querySelector('div').style.transform = 'translateY(-20px)';
         setTimeout(() => {
             modal.style.display = 'none';
         }, 300);
