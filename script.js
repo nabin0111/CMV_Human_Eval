@@ -48,17 +48,21 @@ document.addEventListener('DOMContentLoaded', function () {
     loadCSVData();
 
     // 🔄 이전 진행상황 복원(메모리로만 우선 복원)
-    const savedResponses = localStorage.getItem('survey_responses');
-    const savedUserInfo = localStorage.getItem('survey_userInfo');
-    const savedPage = localStorage.getItem('survey_currentPage');
+    const savedResponses = sessionStorage.getItem('survey_responses');
+    const savedUserInfo = sessionStorage.getItem('survey_userInfo');
+    const savedPage = sessionStorage.getItem('survey_currentPage');
+        
+    // const savedResponses = localStorage.getItem('survey_responses');
+    // const savedUserInfo = localStorage.getItem('survey_userInfo');
+    // const savedPage = localStorage.getItem('survey_currentPage');
 
     if (savedResponses) {
         responses = JSON.parse(savedResponses);
-        console.log('🔄 Restored responses from localStorage');
+        console.log('🔄 Restored responses from sessionStorage');
     }
     if (savedUserInfo) {
         userInfo = JSON.parse(savedUserInfo);
-        console.log('🔄 Restored user info from localStorage');
+        console.log('🔄 Restored user info from sessionStorage');
         // 사용자 정보 폼 채우기(폼이 이미 DOM에 있을 가능성 높음)
         fillUserInfoFormFromSaved();
     }
@@ -514,8 +518,9 @@ function validateUserInfo() {
     };
 
     // 사용자 정보 즉시 저장
-    localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
-
+    // localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
+    sessionStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
+    
     return true;
 }
 
@@ -725,9 +730,15 @@ function saveCurrentPageResponses() {
     });
 
     // 👉 localStorage 저장(진행상황/응답/유저정보/현재페이지)
-    localStorage.setItem('survey_responses', JSON.stringify(responses));
-    localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
-    localStorage.setItem('survey_currentPage', currentPageNum);
+    // localStorage.setItem('survey_responses', JSON.stringify(responses));
+    // localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
+    // localStorage.setItem('survey_currentPage', currentPageNum);
+
+    sessionStorage.setItem('survey_responses', JSON.stringify(responses));
+    sessionStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
+    sessionStorage.setItem('survey_currentPage', currentPageNum);
+
+
 
     return true;
 }
@@ -973,13 +984,13 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-// Auto-save periodically (every 30 seconds) to localStorage
+// Auto-save periodically (every 30 seconds) to sessionStorage
 setInterval(() => {
     if (currentPageNum > 0 && Object.keys(responses).length > 0) {
-        localStorage.setItem('survey_responses', JSON.stringify(responses));
-        localStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
-        localStorage.setItem('survey_currentPage', currentPageNum);
-        console.log('⏱ Periodic auto-save to localStorage');
+        sessionStorage.setItem('survey_responses', JSON.stringify(responses));
+        sessionStorage.setItem('survey_userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('survey_currentPage', currentPageNum);
+        console.log('⏱ Periodic auto-save to sessionStorage');
     }
 }, 30000);
 
